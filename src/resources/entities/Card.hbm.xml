@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gen.entities.Card" table="Card" abstract="true">
+		<meta attribute="description">This class is used to save the info about cards</meta>
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<property name="name" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="stars" type="integer">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="imageId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="description" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<list name="actionIds" lazy="false" cascade="merge">
+			<key column="cardId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+		<property name="life" type="integer" />
+		<property name="attack" type="integer" />
+				<property name="type" column="TYPE">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">main.entities.CardType</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+	</class>
+
+	<class name="gen.entities.DbDeck">
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<property name="name" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+
+		<map name="cardIds" lazy="false" cascade="merge">
+			<key />
+			<index type="java.lang.Long"></index>
+			<element type="integer"></element>
+		</map>
+	</class>
+
+	<class name="gen.entities.DbAction">
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<map name="names" lazy="false">
+			<key />
+			<index type="string"></index>
+			<element type="string"></element>
+		</map>
+		<map name="descriptions" lazy="false">
+			<key />
+			<index type="string"></index>
+			<element type="string"></element>
+		</map>
+		<property name="starCosts" type="float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="duration" type="integer">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="amount" type="float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="isMultipier" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="forCardType" column="CARD_TYPE">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">main.entities.CardType</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+		<property name="type" column="TYPE">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">main.entities.ActionType</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+		<property name="lifeCosts" type="integer"></property>
+		<property name="maxUsage" type="integer"></property>
+		<property name="hasMaxUsage" type="boolean"></property>
+	</class>
+
+	<class name="gen.entities.DbCardImage">
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<property name="image" type="binary">
+        </property>
+		<property name="originalImageSrc" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="type" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="offsetTop" type="float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="offsetLeft" type="float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="width" type="float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="height" type="float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+	</class>
+</hibernate-mapping>

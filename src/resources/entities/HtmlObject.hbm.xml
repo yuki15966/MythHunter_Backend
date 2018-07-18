@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gen.entities.DbHtmlObject">
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<property name="html" type="clob">
+		</property>
+		<map name="answers" lazy="false" cascade="merge">
+			<key />
+			<index type="string"></index>
+			<element type="java.lang.Boolean"></element>
+		</map>
+	</class>
+</hibernate-mapping>

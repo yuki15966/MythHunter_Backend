@@ -1,0 +1,106 @@
+<project>
+	<property name="tomcat.home" value="../../apache-tomee-plus-1.7.4" />
+	<property name="lib" value="WebContent/WEB-INF/lib" />
+
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<macrodef name="git">
+		<attribute name="command" />
+		<attribute name="dir" default="" />
+		<element name="args" optional="true" />
+		<sequential>
+			<echo message="git @{command}" />
+			<exec executable="git" dir="@{dir}">
+				<arg value="@{command}" />
+				<args />
+			</exec>
+		</sequential>
+	</macrodef>
+	<macrodef name="git-clone-pull">
+		<attribute name="repository" />
+		<attribute name="dest" />
+		<sequential>
+			<git command="clone">
+				<args>
+					<arg value="@{repository}" />
+					<arg value="@{dest}" />
+				</args>
+			</git>
+			<git command="pull" dir="@{dest}" />
+		</sequential>
+	</macrodef>
+
+	<target name="tomcat-start">
+		<exec dir="${tomcat.home}/bin" executable="./startup.sh" />
+	</target>
+
+	<target name="tomcat-stop">
+		<exec dir="${tomcat.home}/bin" executable="./shutdown.sh" />
+	</target>
+
+	<target name="pull">
+		<git-clone-pull repository="https://github.com/Rudi75/MythHunter_Backend.git" dest="./" />
+                <git-clone-pull repository="https://github.com/arminh/MythHunterEditor.git" dest="../MythHunterEditor" />
+	</target>
+
+	<target name="clone">
+		<git-clone-pull repository="https://github.com/Rudi75/MythHunter_Backend.git" dest="Backend/" />
+                <git-clone-pull repository="https://github.com/arminh/MythHunterEditor.git" dest="MythHunterEditor" />
+		</target>
+
+	<target name="delete">
+		<delete dir="${tomcat.home}/webapps/Backend"/>
+        <delete dir="${tomcat.home}/webapps/MythHunterEditor"/>
+		<delete file="${tomcat.home}/webapps/Backend.war"/>
+		<delete file="Backend.war" />
+	</target>
+
+	<target name="setup">
+		<mkdir dir="dist" />
+		<echo>Copying web into dist</echo>
+		<copydir dest="dist/web" src="WebContent" />
+		<copydir dest="dist/web/WEB-INF/lib" src="WebContent/WEB-INF/lib/" />
+	</target>
+
+	<target name="compile">
+		<delete dir="dist/web/WEB-INF/classes" />
+		<mkdir dir="dist/web/WEB-INF/classes" />
+		<javac destdir="dist/web/WEB-INF/classes" srcdir="src">
+			<classpath refid="classpath" />
+		</javac>
+		<copy todir="dist/web/WEB-INF/classes">
+			<fileset dir="src">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="buildwar">
+		<war basedir="dist/web" destfile="Backend.war" webxml="dist/web/WEB-INF/web.xml">
+			<!-- <exclude name="WEB-INF/**" /> -->
+			<webinf dir="dist/web/WEB-INF/">
+				<include name="**/*.jar" />
+			</webinf>
+		</war>
+	</target>
+
+	<target name="deploy">
+		<copy file="Backend.war" todir="${tomcat.home}/webapps" />
+		<copy file="apk/myth.apk" todir="${tomcat.home}/webapps/apk" />
+		
+		<copy todir="${tomcat.home}/webapps/MythHunterEditor">
+			<fileset dir="../MythHunterEditor"/>
+		</copy>
+		<delete dir="dist" />
+	</target>
+
+	<target name="default" depends="tomcat-stop,delete,setup,compile,buildwar,deploy,tomcat-start">
+	</target>
+	<target name="update" depends="tomcat-stop,pull,delete,setup,compile,buildwar,deploy,tomcat-start">
+	</target>
+</project>

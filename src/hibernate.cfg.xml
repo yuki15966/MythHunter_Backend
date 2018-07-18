@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"  
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+	<session-factory>
+
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://localhost:5432/DB_ADMIN</property>
+		<property name="connection.username">DB_ADMIN</property>
+		<property name="connection.password">server</property>
+		<property name="session_factory_name">SessionFactory</property>
+		<property name="hibernate.event.merge.entity_copy_observer">allow</property>
+
+		<!-- JDBC connection pool (use the built-in) -->
+		
+		<property name="connection.pool_size">10</property>
+
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">false</property>
+
+		<!-- Drop and re-create the database schema on startup -->
+		<property name="hbm2ddl.auto">update</property> 
+
+		<mapping resource="resources/entities/User.hbm.xml" />
+		<mapping resource="resources/entities/HtmlObject.hbm.xml" />
+		<mapping resource="resources/entities/TreePart.hbm.xml" />
+		<mapping resource="resources/entities/Marker.hbm.xml" />
+		<mapping resource="resources/entities/Quest.hbm.xml" />
+		<mapping resource="resources/entities/Card.hbm.xml" />
+		<mapping resource="resources/entities/Enemy.hbm.xml" />
+		<mapping resource="resources/entities/RandomEnemy.hbm.xml" />
+
+	</session-factory>
+
+</hibernate-configuration>  

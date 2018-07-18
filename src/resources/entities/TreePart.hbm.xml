@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gen.entities.TreePart" abstract="true">
+		<id name="id" column="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<component name="position" class="gen.entities.Position"
+			lazy="false">
+			<meta attribute="use-in-tostring">true</meta>
+			<property name="x" type="integer" column="position_x">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="y" type="integer" column="position_y">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+		</component>
+		<property name="finished" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="active" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="opened" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="executedAt" type="timestamp">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<list name="successors" lazy="false" cascade="merge">
+			<key column="predecessorId" unique="false" />
+			<index />
+			<many-to-many class="gen.entities.TreePart" column="id"
+				lazy="false" />
+		</list>
+		<many-to-one name="marker" class="gen.entities.Marker"
+			lazy="false">
+		</many-to-one>
+		<property name="questInstanceId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="type" column="TYPE">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">main.entities.TreePartType</param>
+				<param name="useNamed">true</param>
+			</type>
+		</property>
+		<property name="highlightedInvisibeMarker" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+	</class>
+</hibernate-mapping>

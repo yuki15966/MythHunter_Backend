@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gen.entities.Marker">
+		<id name="id" column="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<component name="position" class="gen.entities.MapPosition"
+			lazy="false">
+			<meta attribute="use-in-tostring">true</meta>
+			<property name="longitude" type="float" column="position_longitude">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="latitude" type="float" column="position_latitude">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+		</component>
+		<property name="name" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="htmlId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<component name="targetPosition" class="gen.entities.MapPosition"
+			lazy="false">
+			<meta attribute="use-in-tostring">true</meta>
+			<property name="longitude" type="float" column="target_position_longitude">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="latitude" type="float" column="target_position_latitude">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+		</component>
+		<property name="finishedHtmlId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="type" column="TYPE">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">main.entities.MarkerType</param>
+				<param name="useNamed">true</param>
+			</type>	
+		</property>
+		<property name="enemyId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+	</class>
+</hibernate-mapping>

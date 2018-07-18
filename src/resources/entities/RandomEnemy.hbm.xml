@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gen.entities.DbRandomEnemy">
+		<id name="id" column="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<component name="position" class="gen.entities.MapPosition"
+			lazy="false">
+			<meta attribute="use-in-tostring">true</meta>
+			<property name="longitude" type="float" column="position_longitude">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+			<property name="latitude" type="float" column="position_latitude">
+				<meta attribute="use-in-tostring">true</meta>
+			</property>
+		</component>
+		<many-to-one name="enemy" column="enemy" class="gen.entities.DbEnemy"
+			lazy="false" cascade="merge">
+		</many-to-one>
+		<list name="completedByUserIds" lazy="false" cascade="merge,delete">
+			<key column="randomEnemyId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+	</class>
+</hibernate-mapping>

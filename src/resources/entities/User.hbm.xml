@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ 	<class name="gen.entities.DbUser" table="USER_">
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<list name="activeQuestIds" lazy="false" cascade="merge">
+			<key column="playerActiveId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+		
+		<list name="createdQuestIds" lazy="false" cascade="merge">
+			<key column="createrId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+		
+		<property name="name" type="string" unique="true">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="password" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="money" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="rotateMap" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+
+		<list name="solvedQuestIds" lazy="false" cascade="merge">
+			<key column="playerSolvedId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+		
+		<list name="deckIds" lazy="false" cascade="merge">
+			<key column="playerDeckId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+		
+		<property name="taskCount" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="answeredQuestionsCount" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		
+		<property name="foundLocationsCount" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+
+		<property name="startedFightsCount" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="wonFightsCount" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="kmWalked" type="double">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="tutorialPlayed" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<property name="creationTutorialFlags" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		
+		<map name="cardIds" lazy="false" cascade="merge">
+		<key />
+		<index type="java.lang.Long"></index>
+		<element type="integer"></element>
+		</map>
+		
+		<list name="createdCardIds" lazy="false" cascade="merge">
+			<key column="createrId" />
+			<index />
+			<element type="java.lang.Long">
+			</element>
+		</list>
+	</class>
+
+
+</hibernate-mapping>

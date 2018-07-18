@@ -1,0 +1,7 @@
+
+package main.entities;
+
+public enum ActionType
+{
+	DAMAGE, DECREASE_ATTACK, DOT, DRAW_CARDS, BANN_MAGIC, INCREASE_ATTACK, HEAL, SLEEP, CONFUSE, TAUNT
+}

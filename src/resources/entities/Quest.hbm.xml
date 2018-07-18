@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="gen.entities.Quest">
+		<id name="id" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<property name="name" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="shortDescription" type="string">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="difficulty" type="string" not-null="true">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="qualityRating" type="java.lang.Float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="difficultyRating" type="java.lang.Float">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<many-to-one name="startMarker" column="startMarker "
+			class="gen.entities.Marker" lazy="false" cascade="merge">
+		</many-to-one>
+		<property name="htmlId" type="long" not-null="true">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="createrId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="approved" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="submitted" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="treeRootId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<list name="specialCards" lazy="false" cascade="merge">
+			<key column="questId" />
+			<index />
+			<element type="java.lang.Long" not-null="true">
+			</element>
+		</list>
+	</class>
+
+	<class name="gen.entities.QuestRating">
+		<id name="id" type="long">
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<property name="questId" type="long" unique-key="quest_user_uk">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="userId" type="long" unique-key="quest_user_uk">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="qualityRating" type="int" not-null="true">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="difficultyRating" type="int" not-null="true">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="comment" type="string" not-null="false">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+
+	</class>
+
+	<class name="gen.entities.QuestInstance">
+		<id name="id" type="long">
+			<generator class="identity"></generator>
+		</id>
+		<version column="version_column" name="version" />
+		<property name="questId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="treeInstanceRootId" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="failCount" type="long">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="fightSkipped" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="highlighted" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="visibleOnMap" type="boolean">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<property name="startedAt" type="timestamp">
+			<meta attribute="use-in-tostring">true</meta>
+		</property>
+		<list name="treeEndIds" lazy="false" cascade="merge">
+			<key column="questInstanceId" />
+			<index />
+			<element type="java.lang.Long" not-null="true">
+			</element>
+		</list>
+	</class>
+
+
+</hibernate-mapping>

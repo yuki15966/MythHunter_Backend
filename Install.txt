@@ -1,0 +1,85 @@
+*SSH
+*https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-16-04
+*http://askubuntu.com/questions/48555/how-to-set-up-a-ubuntu-server-to-be-securely-available-from-internet
+sudo apt-get install openssh-server
+sudo apt-get install vim
+/etc/ssh/sshd_config change #PasswordAuthentication yes to PasswordAuthentication no
+mkdir ~/.ssh
+chmod 700 ~/.ssh
+nano ~/.ssh/authorized_keys copy public key, one line!
+chmod 600 ~/.ssh/authorized_keys
+
+*Setting up PostGreSql*
+*https://www.digitalocean.com/community/tutorials/how-to-install-and-use-postgresql-on-ubuntu-14-04
+$ sudo apt-get update
+$ sudo apt-get install postgresql postgresql-contrib
+$ sudo -i -u postgres
+$ createuser --interactive ###DB_ADMIN,y###
+$ createdb DB_ADMIN
+$ psql
+$ ALTER USER "DB_ADMIN" WITH PASSWORD 'server';
+$ \q
+$ exit
+$ sudo adduser DB_ADMIN --force-badname  ###server###
+$ sudo -i -u DB_ADMIN
+$ psql
+$ \conninfo
+$ \q
+$ exit
+
+*Enable remote access
+*http://www.cyberciti.biz/tips/postgres-allow-remote-access-tcp-connection.html
+$ sudo -i -u postgres
+$ vim /etc/postgresql/9.3/main/pg_hba.conf
+add 'host all all 0.0.0.0/0 md5' and save
+$ vim /etc/postgresql/9.3/main/postgresql.conf
+find listen_addresses='localhost' and replace with listen_addresses='*'. in the end we should enter our IP adresses.
+$ /etc/init.d/postgresql restart
+$ exit
+$ sudo ufw enable
+$ sudo ufw allow 22
+$ sudo ufw allow 8080
+$ sudo ufw allow 8005
+$ sudo ufw allow 8009
+$ sudo ufw allow 5432
+
+*install tomcat
+$ mkdir downloads
+$ cd downloads
+$ wget http://www.eu.apache.org/dist/tomee/tomee-1.7.2/apache-tomee-1.7.2-plus.tar.gz
+$ cd ..
+$ tar -xvzf downloads/apache-tomee-1.7.2-plus.tar.gz
+$ mkdir workspace
+$ cd workspace
+$ mkdir Backend
+$ apt-get install haveged
+
+
+*install java
+$ sudo apt-get install openjdk-7-jdk
+$ sudo apt-get install ant
+$ sudo apt-get install git
+
+*Checkout MythHunter_Backend
+copy build.xml to workspcae
+ant clone
+cd Backend
+ant update
+
+*add clearDb function
+CREATE OR REPLACE FUNCTION truncate_tables(username IN VARCHAR) RETURNS void AS $$
+DECLARE
+    statements CURSOR FOR
+        SELECT tablename FROM pg_tables
+        WHERE tableowner = username AND schemaname = 'public';
+BEGIN
+    FOR stmt IN statements LOOP
+        EXECUTE 'TRUNCATE TABLE ' || quote_ident(stmt.tablename) || ' CASCADE;';
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+

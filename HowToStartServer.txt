@@ -1,0 +1,15 @@
+Open Eclipse
+open "Servers" view
+Start Tomcat
+delete Backend-> Java Resources -> client -> com.backend.wsdl
+right click on backend project -> New -> other
+select Web Service Client -> next
+select service definition (http://localhost:8080/Backend/webservices/Backend?wsdl) -> next
+Output Folder: Backend/Client -> Finish
+/Backend/client/setup/Setup.java -> execute test setupAll()
+
+if you don't want to clear the db upon startup change  in /Backend/src/hibernate.cfg.xml
+<property name="hbm2ddl.auto">create</property>  to <property name="hbm2ddl.auto">validate</property> 
+
+if http://localhost:8080/Backend/webservices/Backend?wsdl entered in browser doesn't show a valid wsdl 
+make sure no errors are within the project, not even in the client. comment out Server.java if needed.
