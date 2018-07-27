@@ -10,12 +10,9 @@ import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.imageio.ImageIO;
 import javax.xml.bind.DatatypeConverter;
-
 import org.junit.Test;
-
 import com.backend.wsdl.Action;
 import com.backend.wsdl.ActionType;
 import com.backend.wsdl.Card;
@@ -102,7 +99,7 @@ public class Setup
 		LongToIntEntry[] cardIds = cards.toArray(new LongToIntEntry[cards.size()]);
 		createRandomEnemies(backend, cardIds);
 	}
-	
+
 	@Test
 	public void setupAll() throws IOException
 	{
@@ -137,7 +134,7 @@ public class Setup
 		throws IOException
 	{
 		System.out.println("setupUser");
-		User user = new User(null, 0, cardIds, null, questIds, deckIds, 0, 0, 0, 1500000, "test",
+		User user = new User(null, 0, cardIds, null, questIds, "", deckIds, 0, 0, 0, 1500000, "test",
 			"6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b", true, null, 0, 0, false, 0);
 		user = backend.addUser(user);
 
@@ -286,7 +283,7 @@ public class Setup
 				DatatypeConverter.printBase64Binary(imageAsByteArray), 0.0f, 0.0f, "", "image/png",
 				bufferedImage.getWidth());
 			image = backend.addCardImage(image);
-			Card newCard = new Card(actionIds, attack,description, 0, image.getId(), life, name, (int) stars,
+			Card newCard = new Card(actionIds, attack, description, 0, image.getId(), life, name, (int) stars,
 				CardType.MONSTER, null);
 			newCard = backend.addCard(newCard);
 			cards.add(new LongToIntEntry(newCard.getId(), 1));
@@ -343,7 +340,7 @@ public class Setup
 				DatatypeConverter.printBase64Binary(imageAsByteArray), 0.0f, 0.0f, "", "image/png",
 				bufferedImage.getWidth());
 			image = backend.addCardImage(image);
-			Card newCard = new Card(actionIds, null,description, 0, image.getId(), null, name,
+			Card newCard = new Card(actionIds, null, description, 0, image.getId(), null, name,
 				(int) action.getStarCosts(), CardType.SPELL, null);
 			newCard = backend.addCard(newCard);
 			cards.add(new LongToIntEntry(newCard.getId(), 1));
@@ -360,7 +357,7 @@ public class Setup
 				DatatypeConverter.printBase64Binary(imageAsByteArray), 0.0f, 0.0f, "", "image/png",
 				bufferedImage.getWidth());
 			image = backend.addCardImage(image);
-			Card newCard = new Card(actionIds, null,description , 0, image.getId(), null, name,
+			Card newCard = new Card(actionIds, null, description, 0, image.getId(), null, name,
 				(int) action.getStarCosts(), CardType.SPELL, null);
 			newCard = backend.addCard(newCard);
 			cards.add(new LongToIntEntry(newCard.getId(), 1));
@@ -1305,7 +1302,6 @@ public class Setup
 	public Long[] setupQuests(final IBackend backend, final LongToIntEntry[] cardIds) throws IOException
 	{
 		System.out.println("setupQuests");
-	
 
 		HtmlObject htmlObject = addTestHtml(backend);
 

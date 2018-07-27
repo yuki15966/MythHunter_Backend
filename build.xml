@@ -1,5 +1,5 @@
 <project>
-	<property name="tomcat.home" value="../../apache-tomee-plus-1.7.4" />
+	<property name="tomcat.home" value="../../apache-tomee-plus-1.7.2" />
 	<property name="lib" value="WebContent/WEB-INF/lib" />
 
 	<path id="classpath">
@@ -43,13 +43,13 @@
 	</target>
 
 	<target name="pull">
-		<git-clone-pull repository="https://github.com/Rudi75/MythHunter_Backend.git" dest="./" />
-                <git-clone-pull repository="https://github.com/arminh/MythHunterEditor.git" dest="../MythHunterEditor" />
+		<git-clone-pull repository="https://github.com/yuki15966/MythHunter_Backend.git" dest="./" />
+                <git-clone-pull repository="https://github.com/JoeyPrink/mythhunter.git" dest="../MythHunterEditor" />
 	</target>
 
 	<target name="clone">
-		<git-clone-pull repository="https://github.com/Rudi75/MythHunter_Backend.git" dest="Backend/" />
-                <git-clone-pull repository="https://github.com/arminh/MythHunterEditor.git" dest="MythHunterEditor" />
+		<git-clone-pull repository="https://github.com/yuki15966/MythHunter_Backend.git" dest="Backend/" />
+                <git-clone-pull repository="https://github.com/JoeyPrink/mythhunter.git" dest="MythHunterEditor" />
 		</target>
 
 	<target name="delete">
@@ -91,10 +91,9 @@
 
 	<target name="deploy">
 		<copy file="Backend.war" todir="${tomcat.home}/webapps" />
-		<copy file="apk/myth.apk" todir="${tomcat.home}/webapps/apk" />
 		
 		<copy todir="${tomcat.home}/webapps/MythHunterEditor">
-			<fileset dir="../MythHunterEditor"/>
+			<fileset dir="../MythHunterEditor/MythHunterEditor-master"/>
 		</copy>
 		<delete dir="dist" />
 	</target>
