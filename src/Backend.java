@@ -52,9 +52,7 @@ import main.helper.FileTransfererImpl;
 import main.helper.Transaction;
 import main.integration.IntegratePicture;
 import main.integration.IntegrationConfigParams;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -351,25 +349,14 @@ public class Backend implements IBackend
 		transaction.commit();
 	}
 
-	@Override
-	public void clearDB() // TODO remove. only for testing
-	{
-		System.out.println("[" + new Date() + "] clearDB");
-		Transaction<?> transaction = new Transaction<Object>(sessionFactory)
-		{
-			@Override
-			protected Object doInNewTransaction()
-			{
-				String sql = "SELECT count(*) FROM truncate_tables('DB_ADMIN');";
-				SQLQuery query = sessionFactory.getCurrentSession().createSQLQuery(sql);
-				query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-				query.list();
-				return null;
-			}
-		};
-		transaction.commit();
-	}
-
+	/*
+	 * @Override public void clearDB() // TODO remove. only for testing { System.out.println("[" + new Date() +
+	 * "] clearDB"); Transaction<?> transaction = new Transaction<Object>(sessionFactory) {
+	 * @Override protected Object doInNewTransaction() { String sql =
+	 * "SELECT count(*) FROM truncate_tables('DB_ADMIN');"; SQLQuery query =
+	 * sessionFactory.getCurrentSession().createSQLQuery(sql); query.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
+	 * query.list(); return null; } }; transaction.commit(); }*
+	 */
 	@Override
 	public User login(final String unserName, final String password)
 	{

@@ -1,7 +1,3 @@
-import java.util.List;
-
-import javax.jws.WebService;
-
 import gen.entities.Card;
 import gen.entities.MapPosition;
 import gen.entities.Marker;
@@ -9,6 +5,8 @@ import gen.entities.Quest;
 import gen.entities.QuestInstance;
 import gen.entities.QuestRating;
 import gen.entities.TreePart;
+import java.util.List;
+import javax.jws.WebService;
 import main.entities.Action;
 import main.entities.CardImage;
 import main.entities.CardType;
@@ -61,7 +59,7 @@ abstract interface IBackend
 	QuestInstance getQuestInstance(long id);
 	List<QuestInstance> getQuestInstances(List<Long> ids);
 	void deleteQuestInstance(long id);
-	void clearDB(); // TODO remove. only for testing
+	// void clearDB(); // TODO remove. only for testing
 
 	Deck getDeck(long id);
 	Deck updateDeck(Deck deck);
