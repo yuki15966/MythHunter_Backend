@@ -1,7 +1,7 @@
 
 package gen.entities;
 
-// Generated Jul 27, 2018 10:14:50 AM by Hibernate Tools 3.4.0.CR1
+// Generated Jul 27, 2018 5:45:54 PM by Hibernate Tools 3.4.0.CR1
 
 import java.util.ArrayList;
 import java.util.List;
