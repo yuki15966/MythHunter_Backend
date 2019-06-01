@@ -8,10 +8,10 @@
 	<session-factory>
 
 		<!-- Database connection settings -->
-		<property name="connection.driver_class">org.postgresql.Driver</property>
-		<property name="connection.url">jdbc:postgresql://localhost:5432/DB_ADMIN</property>
-		<property name="connection.username">DB_ADMIN</property>
-		<property name="connection.password">server</property>
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost/MythHunterDB</property>
+		<property name="connection.username">mythHunterAdmin</property>
+		<property name="connection.password">mythHunterBackend</property>
 		<property name="session_factory_name">SessionFactory</property>
 		<property name="hibernate.event.merge.entity_copy_observer">allow</property>
 		<property name="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory</property>
@@ -21,7 +21,7 @@
 		<property name="connection.pool_size">10</property>
 
 		<!-- SQL dialect -->
-		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
 		<!-- Enable Hibernate's automatic session context management -->
 		<property name="current_session_context_class">thread</property>
