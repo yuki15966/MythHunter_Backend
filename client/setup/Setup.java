@@ -104,7 +104,7 @@ public class Setup
 	public void setupAll() throws IOException
 	{
 		final IBackend backend = new IBackendProxy();
-		backend.clearDB();
+		// backend.clearDB();
 		setupActions(backend);
 		List<LongToIntEntry> cards = setupCards(backend);
 		final LongToIntEntry[] cardIds = cards.toArray(new LongToIntEntry[cards.size()]);
