@@ -14,7 +14,6 @@
 		<property name="connection.password">server</property>
 		<property name="session_factory_name">SessionFactory</property>
 		<property name="hibernate.event.merge.entity_copy_observer">allow</property>
-		<property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
 
 		<!-- JDBC connection pool (use the built-in) -->
 		
@@ -33,7 +32,10 @@
 		<property name="show_sql">false</property>
 
 		<!-- Drop and re-create the database schema on startup -->
+
 		<property name="hbm2ddl.auto">update</property> 
+
+
 
 		<mapping resource="resources/entities/User.hbm.xml" />
 		<mapping resource="resources/entities/HtmlObject.hbm.xml" />
