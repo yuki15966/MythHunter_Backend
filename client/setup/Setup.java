@@ -92,17 +92,23 @@ public class Setup
 	@Test
 	public void setup() throws IOException
 	{
+		System.out.print("<setup>");
+		
 		IBackend backend = new IBackendProxy();
-		backend.clearDB();
+		//backend.clearDB();
 		setupActions(backend);
 		final List<LongToIntEntry> cards = setupCards(backend);
 		LongToIntEntry[] cardIds = cards.toArray(new LongToIntEntry[cards.size()]);
 		createRandomEnemies(backend, cardIds);
+		System.out.print("</setup>");
+		
 	}
 
 	@Test
 	public void setupAll() throws IOException
 	{
+		System.out.print("<setup All>");
+		
 		final IBackend backend = new IBackendProxy();
 		// backend.clearDB();
 		setupActions(backend);
@@ -128,6 +134,8 @@ public class Setup
 		Long[] questIds = setupQuests(backend, cardIds);
 		Long[] deckIds = setupDecks(backend, cardIds);
 		setupUser(backend, cardIds, questIds, deckIds);
+		System.out.print("</setup All>");
+		
 	}
 
 	private User setupUser(IBackend backend, LongToIntEntry[] cardIds, Long[] questIds, Long[] deckIds)
@@ -139,6 +147,7 @@ public class Setup
 		user = backend.addUser(user);
 
 		Card[] booster = backend.getBooster(user.getId());
+		System.out.println("here");
 		return user;
 	}
 	private Long[] setupDecks(IBackend backend, LongToIntEntry[] cardIds) throws IOException
@@ -153,13 +162,13 @@ public class Setup
 	private List<LongToIntEntry> setupCards(IBackend backend) throws RemoteException
 	{
 		System.out.println("setupCards");
-
+		System.out.println("</setupCards>");
 		List<LongToIntEntry> cards = createTutorialCards(backend);
 
 		{
 			Action action = draw2cards;
 			String name = "Poseidons Gunst";
-			String description = "In seiner GÃ¼te gewÃ¤hrt dir Poseidon 2 zusÃ¤tzliche Karten.";
+			String description = "In seiner Güte gewährt dir Poseidon 2 zusätzliche Karten.";
 			Long[] actionIds = { action.getId() };
 			BufferedImage bufferedImage = getImage("Poseidon.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
@@ -174,8 +183,8 @@ public class Setup
 		}
 		{
 			Action action = incAttack2;
-			String name = "Thors StÃ¤rke";
-			String description = "Der Donnergott gewÃ¤hrt einen Teil seiner StÃ¤rke.";
+			String name = "Thors Stärke";
+			String description = "Der Donnergott gewährt einen Teil seiner Stärke.";
 			Long[] actionIds = { action.getId() };
 			BufferedImage bufferedImage = getImage("Thor.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
@@ -191,7 +200,7 @@ public class Setup
 		{
 			Action[] actions = {};
 			String name = "Steirischer Panther";
-			String description = "Der mÃ¤chtige Panther verbreitet Furcht unter seinen Gegnern.";
+			String description = "Der mächtige Panther verbreitet Furcht unter seinen Gegnern.";
 			int attack = 7;
 			int life = 9;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -216,7 +225,7 @@ public class Setup
 		{
 			Action[] actions = { burn2 };
 			String name = "Baby Drache";
-			String description = "Begehe nicht den Fehler diesen Drachen zu unterschÃ¤tzen nur weil er noch klein ist.";
+			String description = "Begehe nicht den Fehler diesen Drachen zu unterschätzen nur weil er noch klein ist.";
 			int attack = 2;
 			int life = 4;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -241,7 +250,7 @@ public class Setup
 		{
 			Action[] actions = {};
 			String name = "Odin Allvater";
-			String description = "Der Vater aller nordischen GÃ¶tter ist ein gefÃ¼rchteter Krieger.";
+			String description = "Der Vater aller nordischen Götter ist ein gefürchteter Krieger.";
 			int attack = 10;
 			int life = 10;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -266,7 +275,7 @@ public class Setup
 		{
 			Action[] actions = { confuse1 };
 			String name = "Wolpertinger";
-			String description = "Dieses scheue bayrische Wesen verwirrt Gegner durch sein unnatÃ¼rliches Aussehen.";
+			String description = "Dieses scheue bayrische Wesen verwirrt Gegner durch sein unnatürliches Aussehen.";
 			int attack = 3;
 			int life = 3;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -291,7 +300,7 @@ public class Setup
 		{
 			Action[] actions = { weaken1 };
 			String name = "Incubus";
-			String description = "Der Incubus-DÃ¤mon schwÃ¤cht Gegner indem er AlptrÃ¤ume verursacht.";
+			String description = "Der Incubus-Dämon schwächt Gegner indem er Alpträume verursacht.";
 			int attack = 3;
 			int life = 5;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -316,7 +325,7 @@ public class Setup
 		{
 			Action action = heal4;
 			String name = "Heilende HÃ¤nde";
-			String description = "Eine BerÃ¼hrung der magischen HÃ¤nde reicht aus um alle kÃ¶rperlichen Gebrechen zu heilen.";
+			String description = "Eine Berührung der magischen Hände reicht aus um alle körperlichen Gebrechen zu heilen.";
 			Long[] actionIds = { action.getId() };
 			BufferedImage bufferedImage = getImage("Hands.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
@@ -348,7 +357,7 @@ public class Setup
 		{
 			Action action = halveAttack;
 			String name = "Schrumpfstrahler";
-			String description = "Der Schrumpfstrahler verkleiner jedes Ziel auf die HÃ¤lfte der GrÃ¶ÃŸe.";
+			String description = "Der Schrumpfstrahler verkleiner jedes Ziel auf die Hälfte der Größe.";
 			Long[] actionIds = { action.getId() };
 			BufferedImage bufferedImage = getImage("Schrumpfstrahler.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
@@ -364,8 +373,8 @@ public class Setup
 		}
 		{
 			Action[] actions = { taunt };
-			String name = "RÃ¼bezahl";
-			String description = "Der Berggeist RÃ¼bezahl lauert seinen Feinden im tschechischen Riesengebirge auf.";
+			String name = "Rübezahl";
+			String description = "Der Berggeist Rübezahl lauert seinen Feinden im tschechischen Riesengebirge auf.";
 			int attack = 6;
 			int life = 6;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -376,7 +385,7 @@ public class Setup
 				actionIdsList.add(action.getId());
 			}
 			Long[] actionIds = actionIdsList.toArray(new Long[actionIdsList.size()]);
-			BufferedImage bufferedImage = getImage("RÃ¼bezahl.png");
+			BufferedImage bufferedImage = getImage("Rübezahl.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
 			CardImage image = new CardImage(bufferedImage.getHeight(), 0l,
 				DatatypeConverter.printBase64Binary(imageAsByteArray), 0.0f, 0.0f, "", "image/png",
@@ -388,7 +397,7 @@ public class Setup
 			cards.add(new LongToIntEntry(newCard.getId(), 1));
 
 		}
-
+		System.out.println("</setupCards>");
 		return cards;
 	}
 
@@ -399,7 +408,7 @@ public class Setup
 		{
 			Action action = bannMagic;
 			String name = "Anti-Magie-Spray";
-			String description = "Gegen kleine und groÃŸe magische AnhÃ¤ngsel";
+			String description = "Gegen kleine und groÃŸe magische Anhängsel";
 			Long[] actionIds = { action.getId() };
 			BufferedImage bufferedImage = getImage("Spray.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
@@ -415,7 +424,7 @@ public class Setup
 		{
 			Action action = damage5;
 			String name = "Feuerball";
-			String description = "Ein mÃ¤chtiger Feuerball der alles auf seinem Weg verwÃ¼stet";
+			String description = "Ein mächtiger Feuerball der alles auf seinem Weg verwüstet";
 			Long[] actionIds = { action.getId() };
 			BufferedImage bufferedImage = getImage("fireball.png");
 			byte[] imageAsByteArray = ToByteArray(bufferedImage, "png");
@@ -456,7 +465,7 @@ public class Setup
 		{
 			Action[] actions = { taunt };
 			String name = "Robuster Kobold";
-			String description = "Ein besonders groÃŸes Exemplar der Kobolde aus den fernen Mooren.";
+			String description = "Ein besonders großes Exemplar der Kobolde aus den fernen Mooren.";
 			int life = 3;
 			int attack = 3;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -481,7 +490,7 @@ public class Setup
 		{
 			Action[] actions = { taunt };
 			String name = "Baumriese";
-			String description = "Eine uralte, riesige Eiche aus den Alpen-WÃ¤ldern. GerÃ¼chteweise ein Verwandter von Baumbart";
+			String description = "Eine uralte, riesige Eiche aus den Alpen-Wäldern. Gerüchteweise ein Verwandter von Baumbart";
 			int attack = 2;
 			int life = 10;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -506,7 +515,7 @@ public class Setup
 		{
 			Action[] actions = { sleep1 };
 			String name = "Listige Fee";
-			String description = "Die Stimme dieser Fee macht selbst aus wÃ¼tenden Orks zahme SchÃ¤fchen.";
+			String description = "Die Stimme dieser Fee macht selbst aus wütenden Orks zahme Schäfchen.";
 			int attack = 1;
 			int life = 1;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -531,7 +540,7 @@ public class Setup
 		{
 			Action[] actions = { taunt };
 			String name = "Gestiefelter Kater";
-			String description = "Stiefel, SÃ¤bel und Sampt-PfÃ¶tchn: So kennen wir den gestiefelten Kater.";
+			String description = "Stiefel, Säbel und Samt-Pfötchen: So kennen wir den gestiefelten Kater.";
 			int attack = 2;
 			int life = 2;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -556,7 +565,7 @@ public class Setup
 		{
 			Action[] actions = {};
 			String name = "Furchtlose Eule";
-			String description = "Diese Eule fÃ¼rchtet sich vor nichts, weder vor dem JÃ¤ger, noch dem Tageslicht. Vor garnichts!";
+			String description = "Diese Eule fürchtet sich vor nichts, weder vor dem Jäger, noch dem Tageslicht. Vor garnichts!";
 			int attack = 6;
 			int life = 4;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -581,7 +590,7 @@ public class Setup
 		{
 			Action[] actions = {};
 			String name = "Gartenzwerg";
-			String description = "Ein allezeit freundlicher und gut gelaunter GÃ¤rtner-Zwerg der nur manchmal mit seiner Harke um sich schlÃ¤gt.";
+			String description = "Ein allezeit freundlicher und gut gelaunter Gärtner-Zwerg der nur manchmal mit seiner Harke um sich schlägt.";
 			int attack = 2;
 			int life = 2;
 			int stars = (int) (life * 0.5 + attack * 0.5);
@@ -1314,15 +1323,22 @@ public class Setup
 	}
 	private void createRandomEnemies(IBackend backend, LongToIntEntry[] cardIds) throws RemoteException
 	{
+		System.out.print("<createRandomEnemies>");
 		System.out.println("createRandomEnemies");
 
 		for (int i = 0; i < 5; i++)
 		{
+			System.out.println("i"+i);
+			
 			Deck deck = backend.addDeck(new Deck(cardIds, 0, "Base Deck"));
+			
 			backend.addEnemy(new Enemy(deck.getId(), "RandomEnemy" + i + " desc", 0, null, "RandomEnemy" + i, true));
 		}
-
+		System.out.print("vorBackend");
 		backend.createRandomEnemies();
+		System.out.print("</createRandomEnemies>");
+		
+		
 	}
 
 	private HtmlObject addTestHtml(IBackend backend) throws IOException
@@ -1643,5 +1659,7 @@ public class Setup
 			"shortDescription", null, m1.getId(), true, part1.getId(), null);
 		quest = backend.addEditorQuest(quest);
 		return quest.getId();
+		
 	}
+	
 }
